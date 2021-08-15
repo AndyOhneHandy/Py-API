@@ -21,25 +21,74 @@ for trigger in triggerwords:
 def konnotationcheck(testinput):
     poscount = 0
     negcount = 0
+    wordcount = 0
     unklar = 0
     for pos in posKw:
         if pos in testinput:
             poscount += 1
+            wordcount += 1
     for neg in negKw:
         if neg in testinput:
             negcount -= 1
+            wordcount += 1
+
     pncount = poscount + negcount
+
     for unk in unklarKw:
         if unk in testinput:
             pncount  = pncount*(-1)
             unklar = 1
-    if pncount > 0:
-        # posDummy, negDummy, unklar 
-        return 1, 0, unklar
-    if pncount < 0:
-        # posDummy, negDummy, unklar 
-        return 0, 1, unklar
-    else: 
-        return 0, 0, 0
     
+    konnotationvalue = round(pncount/wordcount, 2)
+
+    return konnotationvalue, unklar
+
+
+#   if pncount > 0:
+#        # posDummy, negDummy, unklar 
+#        return 1, 0, unklar
+#    if pncount < 0:
+#        # posDummy, negDummy, unklar 
+#        return 0, 1, unklar
+#    else: 
+#        return 0, 0, 0
+
+def partycheck(testinput):
+    afdDummy = 0
+    fdpDummy = 0 
+    cduDummy = 0
+    spdDummy = 0
+    b90Dummy = 0
+    linDummy = 0
+    multipdummy = 0
+    
+    for afdk in AfDKw:
+        if afdk in testinput:    
+            afdDummy = 1
+
+    for fdpk in FDPKw:
+        if fdpk in testinput:    
+            fdpDummy = 1
+
+    for cduk in CDUKw:
+        if cduk in testinput:    
+            cduDummy = 1
+
+    for spdk in SPDKw:
+        if spdk in testinput:    
+            spdDummy = 1
+
+    for b90k in B90Kw:
+        if b90k in testinput:    
+            b90Dummy = 1
+
+    for link in LinKw:
+        if link in testinput:    
+            linDummy = 1
+            
+    if afdDummy + fdpDummy + cduDummy + spdDummy + b90Dummy + linDummy > 1:
+        multipdummy = 1
+    return afdDummy, fdpDummy, cduDummy, spdDummy, b90Dummy, linDummy, multipdummy
+    
+print(partycheck(testinput))
 print(konnotationcheck(testinput))
