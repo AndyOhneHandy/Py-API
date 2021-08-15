@@ -1,12 +1,12 @@
 testinput = input("Testkommentar eingeben:  ").lower()
 print(testinput)
 
-AfDKw = ["afd", ]
-FDPKw = ["fdp", ]
-CDUKw = ["cdu", ]
-SPDKw = ["spd", ]
-B90Kw = ["grüne", ]
-LinKw = ["linke", ]
+AfDKw = ["afd", "höcke", "weidel", "meuthen", "von Storch", "chrupalla"]
+FDPKw = ["fdp", "die liberalen", "freie demokraten", "freien demokraten", "lindner", "kubicki"]
+CDUKw = ["cdu", "csu", "Die Union", "christdemokraten", "laschet", "merkel", "söder", "merz", "röttgen", "leyen", "karrenbauer", "akk", "seehofer", "scheuer"]
+SPDKw = ["spd", "sozialdemokrat", "scholz", "esken", "borjans", "maas", "klingbeil", "kühnert"]
+B90Kw = ["die grünen", "bündnis 90", "baerbock", "bärbock", "habeck", "kretschmann"]
+LinKw = ["die linke", "linkspartei", "wissler", "wellsow"]
 
 triggerwords = AfDKw + FDPKw + CDUKw + SPDKw + B90Kw + LinKw
 print(triggerwords)
@@ -85,7 +85,7 @@ def partycheck(testinput):
     for link in LinKw:
         if link in testinput:    
             linDummy = 1
-            
+
     if afdDummy + fdpDummy + cduDummy + spdDummy + b90Dummy + linDummy > 1:
         multipdummy = 1
     return afdDummy, fdpDummy, cduDummy, spdDummy, b90Dummy, linDummy, multipdummy
