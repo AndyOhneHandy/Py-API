@@ -1,6 +1,3 @@
-testinput = input("Testkommentar eingeben:  ").lower()
-print(testinput)
-
 AfDKw = ["afd", "höcke", "weidel", "meuthen", "von Storch", "chrupalla"]
 FDPKw = ["fdp", "die liberalen", "freie demokraten", "freien demokraten", "lindner", "kubicki"]
 CDUKw = ["cdu", "csu", "Die Union", "christdemokraten", "laschet", "merkel", "söder", "merz", "röttgen", "leyen", "karrenbauer", "akk", "seehofer", "scheuer"]
@@ -13,11 +10,6 @@ triggerwords = AfDKw + FDPKw + CDUKw + SPDKw + B90Kw + LinKw
 posKw = ["gut", "toll", "wunderbar", ]
 negKw = ["schlecht", "blöd", "nervig", ]
 unklarKw = ["nicht ", "keinesfalls"]
-
-commentcount = 0
-polcommentcount = 0
-
-
 
 def konnotationcheck(testinput):
     poscount = 0
@@ -45,17 +37,7 @@ def konnotationcheck(testinput):
     else:
         konnotationvalue = round(pncount/wordcount, 2)
 
-    return konnotationvalue, unklar
-
-
-#   if pncount > 0:
-#        # posDummy, negDummy, unklar 
-#        return 1, 0, unklar
-#    if pncount < 0:
-#        # posDummy, negDummy, unklar 
-#        return 0, 1, unklar
-#    else: 
-#        return 0, 0, 0
+    return [konnotationvalue, unklar]
 
 def partycheck(testinput):
     afdDummy = 0
@@ -120,23 +102,11 @@ def partycheck(testinput):
 
     if afdDummy + fdpDummy + cduDummy + spdDummy + b90Dummy + linDummy > 1:
         multipdummy = 1
-    return afdDummy, fdpDummy, cduDummy, spdDummy, b90Dummy, linDummy, multipdummy, triggerwordlist, aAbs, fAbs, cAbs, sAbs, gAbs, lAbs, triggerwordcount
 
-def countoutput(com, pol):
-    return com, pol  
+    return [afdDummy, fdpDummy, cduDummy, spdDummy, b90Dummy, linDummy, multipdummy, triggerwordlist, aAbs, fAbs, cAbs, sAbs, gAbs, lAbs, triggerwordcount]
 
-# for trigger in triggerwords:
-#    if trigger in testinput:
-#        commentcount += 1
-#        polcommentcount += 1
-#       print(countoutput(commentcount, polcommentcount) + partycheck(testinput) + konnotationcheck(testinput))
-#    else:
-#        commentcount += 1
-#        print(countoutput(commentcount, polcommentcount) + partycheck(testinput) + konnotationcheck(testinput))
-def mainF(testinput,commentcount):
-    commentcount += 1
-    returndata = countoutput(commentcount, polcommentcount) + partycheck(testinput) + konnotationcheck(testinput)
-    return returndata
+# def countoutput(com):
+#     return com
 
-d = mainF(testinput,commentcount)
-print(d)
+def mainF(testinput):   
+    return partycheck(testinput) + konnotationcheck(testinput)
